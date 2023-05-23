@@ -19,7 +19,6 @@ const loginSL = async () => {
       UserName: `${process.env.SL_UserName}`,
     },
   });
-  console.log("🚀 ~ file: index.js:21 ~ loginSL ~ result:", result);
 
   return result.data;
 };
@@ -36,10 +35,10 @@ const deleteChkTransactionTable = async (SessionId) => {
     },
     httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   }).catch((err) => {
-    console.log(err);
+    throw new Error(err.response.data.error.message.value);
   });
 
-  return result;
+  return result.data;
 };
 
 const getChkTransactionTable = async (SessionId) => {
@@ -53,7 +52,7 @@ const getChkTransactionTable = async (SessionId) => {
     },
     httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   }).catch((err) => {
-    throw new Error(err.response.data.error);
+    throw new Error(err.response.data.error.message.value);
   });
 
   return result.data;
